@@ -16,13 +16,13 @@ mod test;
 pub mod weights;
 pub use weights::WeightInfo;
 
-use codec::{Decode, Encode};
+use codec::{Codec, Decode, Encode};
 
 use sp_runtime::traits::{AtLeast32BitUnsigned, One, Zero};
 use sp_std::{fmt::Debug, vec::Vec};
 
 use frame_support::{
-	dispatch::{Codec, DispatchResult},
+	dispatch::DispatchResult,
 	pallet_prelude::*,
 	transactional,
 };
@@ -147,7 +147,7 @@ pub mod pallet {
 			amount_out_min: T::Balance,
 			routes: Vec<Route<T::StablePoolId, T::StableCurrencyId, T::NormalCurrencyId>>,
 			to: T::AccountId,
-			deadline: T::BlockNumber,
+			deadline: BlockNumberFor<T>,
 		) -> DispatchResult {
 			let who = ensure_signed(origin)?;
 
